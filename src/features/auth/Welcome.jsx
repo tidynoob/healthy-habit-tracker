@@ -1,68 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Container, Heading, Text } from '@chakra-ui/react'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Tooltip
-} from 'chart.js'
-import { Bar } from 'react-chartjs-2'
-import { faker } from '@faker-js/faker'
-
-const data = {
-  labels: ['Habit 1', 'Habit 2', 'Habit 3'],
-  datasets: [
-    {
-      label: 'Streak',
-      data: [
-        faker.datatype.number(10),
-        faker.datatype.number(10),
-        faker.datatype.number(10)
-      ],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1
-    }
-  ]
-}
-
-const options = {
-  indexAxis: 'y',
-  maintainAspectRatio: false,
-  responsive: false,
-  scales: {
-    x: {
-      beginAtZero: true
-    }
-  }
-}
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
-
-function StreakChart() {
-  return <Bar data={data} options={options} height={300} width={200} />
-}
+// import { Link } from 'react-router-dom'
+import { Box, Button } from '@chakra-ui/react'
+import { AiOutlinePlus } from 'react-icons/ai'
+import StreakChart from '../../components/StreakChart'
+import DatePicker from '../../components/DatePicker'
+import DashTable from '../../components/DashTable'
 
 function Welcome() {
-  const date = new Date()
-  const today = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'full',
-    timeStyle: 'long'
-  }).format(date)
+  // const date = new Date()
+  // const today = new Intl.DateTimeFormat('en-US', {
+  //   dateStyle: 'full',
+  //   timeStyle: 'long'
+  // }).format(date)
 
   return (
-    <Box as="section" w="full">
-      <Container maxW="container.3xl">
-        <Heading>Welcome to the Healthy Habit Tracker!</Heading>
-        <Text>Today is {today}</Text>
-        <StreakChart />
-        <Link to="/dash/habits">Habits</Link>
-        <Link to="/dash/users">User Settings</Link>
-      </Container>
+    <Box display="grid" gridTemplateColumns="1fr 3fr" gap="4">
+      <Box
+        gridColumnStart={1}
+        gridColumnEnd={2}
+        bg="white"
+        borderRadius="base"
+        p="4"
+        display="flex"
+        flexDirection="column"
+        gap="4"
+      >
+        <DatePicker />
+        <DashTable />
+        <Button
+          colorScheme="teal"
+          variant="ghost"
+          w="full"
+          leftIcon={<AiOutlinePlus />}
+        >
+          Add Habit
+        </Button>
+      </Box>
+      <StreakChart />
     </Box>
   )
 }
 
 export default Welcome
+
+/* <Link to="/dash/habits">Habits</Link>
+      <Link to="/dash/users">User Settings</Link> */
