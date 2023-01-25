@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 import { Box, Button } from '@chakra-ui/react'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { BiPlusCircle } from 'react-icons/bi'
 import StreakChart from '../../components/StreakChart'
 import DatePicker from '../../components/DatePicker'
 import DashTable from '../../components/DashTable'
@@ -30,8 +30,8 @@ function Welcome() {
         <Button
           colorScheme="teal"
           variant="ghost"
-          w="full"
-          leftIcon={<AiOutlinePlus />}
+          leftIcon={<BiPlusCircle />}
+          alignItems="center"
         >
           Add Habit
         </Button>

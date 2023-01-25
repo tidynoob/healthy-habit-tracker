@@ -28,7 +28,7 @@ const data = [
 function DashTable() {
   const rows = data.map((row) => (
     <Tr>
-      <Td>{row.habit}</Td>
+      <Td textAlign="right">{row.habit}</Td>
       <Td textAlign="center">
         <Checkbox colorScheme="teal" size="lg" isChecked={row.completed} />
       </Td>
@@ -40,8 +40,8 @@ function DashTable() {
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>Habit</Th>
-            <Th>Completed?</Th>
+            <Th textAlign="center">Habit</Th>
+            <Th textAlign="center">Completed?</Th>
           </Tr>
         </Thead>
         <Tbody>{rows}</Tbody>
