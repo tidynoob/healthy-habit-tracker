@@ -31,11 +31,40 @@ const usersApiSlice = apiSlice.injectEndpoints({
         }
         return [{ type: 'User', id: 'LIST' }]
       }
+    }),
+    addNewUser: builder.mutation({
+      query: (newUserData) => ({
+        url: '/users',
+        method: 'POST',
+        body: { ...newUserData }
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }]
+    }),
+    updateUser: builder.mutation({
+      query: (updatedUserData) => ({
+        url: '/users',
+        method: 'PATCH',
+        body: { ...updatedUserData }
+      }),
+      invalidatesTages: (result, error, arg) => [{ type: 'User', id: arg.id }]
+    }),
+    deleteUser: builder.mutation({
+      query: ({ id }) => ({
+        url: '/users',
+        method: 'DELETE',
+        body: { id }
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'User', id: arg.id }]
     })
   })
 })
 
-const { useGetUsersQuery } = usersApiSlice
+const {
+  useGetUsersQuery,
+  useAddNewUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation
+} = usersApiSlice
 
 const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
 
@@ -53,6 +82,9 @@ const {
 export {
   usersApiSlice,
   useGetUsersQuery,
+  useAddNewUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
   selectAllUsers,
   selectUserById,
   selectUserIds

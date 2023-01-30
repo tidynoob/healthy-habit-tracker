@@ -31,11 +31,40 @@ const habitsApiSlice = apiSlice.injectEndpoints({
         }
         return [{ type: 'habit', id: 'LIST' }]
       }
+    }),
+    addNewHabit: builder.mutation({
+      query: (newHabitData) => ({
+        url: '/habits',
+        method: 'POST',
+        body: { ...newHabitData }
+      }),
+      invalidatesTags: [{ type: 'habit', id: 'LIST' }]
+    }),
+    updateHabit: builder.mutation({
+      query: (updatedHabitData) => ({
+        url: '/habits',
+        method: 'PATCH',
+        body: { ...updatedHabitData }
+      }),
+      invalidatesTages: (result, error, arg) => [{ type: 'habit', id: arg.id }]
+    }),
+    deleteHabit: builder.mutation({
+      query: ({ id }) => ({
+        url: '/habits',
+        method: 'DELETE',
+        body: { id }
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'habit', id: arg.id }]
     })
   })
 })
 
-const { useGetHabitsQuery } = habitsApiSlice
+const {
+  useGetHabitsQuery,
+  useAddNewHabitMutation,
+  useDeleteHabitMutation,
+  useUpdateHabitMutation
+} = habitsApiSlice
 
 const selectHabitsResult = habitsApiSlice.endpoints.getHabits.select()
 
@@ -48,11 +77,16 @@ const {
   selectAll: selectAllHabits,
   selectById: selectHabitById,
   selectIds: selectHabitIds
-} = habitsAdapter.getSelectors((state) => selectHabitsData(state) ?? initialState)
+} = habitsAdapter.getSelectors(
+  (state) => selectHabitsData(state) ?? initialState
+)
 
 export {
   habitsApiSlice,
   useGetHabitsQuery,
+  useAddNewHabitMutation,
+  useDeleteHabitMutation,
+  useUpdateHabitMutation,
   selectAllHabits,
   selectHabitById,
   selectHabitIds

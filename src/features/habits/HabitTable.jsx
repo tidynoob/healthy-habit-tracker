@@ -25,7 +25,7 @@ const data = [
   }
 ]
 
-function DashTable() {
+function HabitTable() {
   const rows = data.map((row) => (
     <Tr>
       <Td textAlign="right">{row.habit}</Td>
@@ -50,4 +50,4 @@ function DashTable() {
   )
 }
 
-export default DashTable
+export default HabitTable

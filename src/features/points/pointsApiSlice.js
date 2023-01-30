@@ -19,7 +19,7 @@ const pointsApiSlice = apiSlice.injectEndpoints({
           record.id = record._id
           return record
         })
-        return recordAdapter.setAll(initialState, loadedPoints)
+        return pointsAdapter.setAll(initialState, loadedPoints)
       },
       // eslint-disable-next-line no-unused-vars
       providesTags: (result, error, arg) => {
@@ -31,27 +31,57 @@ const pointsApiSlice = apiSlice.injectEndpoints({
         }
         return [{ type: 'Point', id: 'LIST' }]
       }
+    }),
+    addNewPoint: builder.mutation({
+      query: (newPointData) => ({
+        url: '/points',
+        method: 'POST',
+        body: { ...newPointData }
+      }),
+      invalidatesTags: [{ type: 'Point', id: 'LIST' }]
+    }),
+    updatePoint: builder.mutation({
+      query: (updatedPointData) => ({
+        url: '/points',
+        method: 'PATCH',
+        body: { ...updatedPointData }
+      }),
+      invalidatesTages: (result, error, arg) => [{ type: 'Point', id: arg.id }]
+    }),
+    deletePoint: builder.mutation({
+      query: ({ id }) => ({
+        url: '/points',
+        method: 'DELETE',
+        body: { id }
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Point', id: arg.id }]
     })
   })
 })
 
-const { useGetPointsQuery } = pointsApiSlice
+const {
+  useGetPointsQuery,
+  useAddNewPointMutation,
+  useDeletePointMutation,
+  useUpdatePointMutation
+} = pointsApiSlice
 
-const selectPointsResult = usersApiSlice.endpoints.getPoints.select()
+const selectPointsResult = pointsApiSlice.endpoints.getPoints.select()
 
 const selectPointsData = createSelector(
   selectPointsResult,
   (pointsResult) => pointsResult.data
 )
 
-const {
-  selectAll: selectAllPoints,
-  selectById: selectPointsById
-} = pointsAdapter.getSelectors((state) => selectPointsData(state) ?? initialState)
+const { selectAll: selectAllPoints, selectById: selectPointsById } =
+  pointsAdapter.getSelectors((state) => selectPointsData(state) ?? initialState)
 
 export {
   pointsApiSlice,
   useGetPointsQuery,
+  useAddNewPointMutation,
+  useDeletePointMutation,
+  useUpdatePointMutation,
   selectAllPoints,
   selectPointsById
 }

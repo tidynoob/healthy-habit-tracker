@@ -1,10 +1,10 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
-import { Box, Button } from '@chakra-ui/react'
-import { BiPlusCircle } from 'react-icons/bi'
-import StreakChart from '../../components/StreakChart'
+import { Box } from '@chakra-ui/react'
+import StreakChart from '../points/StreakChart'
 import DatePicker from '../../components/DatePicker'
-import DashTable from '../../components/DashTable'
+import HabitTable from '../habits/HabitTable'
+import NewHabitButton from '../habits/NewHabitButton'
 
 function Welcome() {
   // const date = new Date()
@@ -26,15 +26,8 @@ function Welcome() {
         gap="4"
       >
         <DatePicker />
-        <DashTable />
-        <Button
-          colorScheme="teal"
-          variant="ghost"
-          leftIcon={<BiPlusCircle />}
-          alignItems="center"
-        >
-          Add Habit
-        </Button>
+        <HabitTable />
+        <NewHabitButton />
       </Box>
       <StreakChart />
     </Box>

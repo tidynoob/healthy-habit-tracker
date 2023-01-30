@@ -50,7 +50,7 @@ function StreakChart() {
       borderRadius="base"
       p="4"
       position="relative"
-      maxH="50vh"
+      // maxH="50vh"
     >
       <Bar data={data} options={options} />
     </Box>
