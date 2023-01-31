@@ -9,8 +9,9 @@ import Welcome from './features/auth/Welcome'
 // import HabitsList from './features/habits/HabitsList'
 import UsersList from './features/users/UsersList'
 // import PointsList from './features/points/PointsList'
-import NewUserForm from './features/users/NewUserForm'
+import SignUp from './features/auth/SignUp'
 import EditUser from './features/users/EditUser'
+import Prefetch from './features/auth/Prefetch'
 
 function App() {
   return (
@@ -19,25 +20,28 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Public />} />
           <Route path="login" element={<Login />} />
-          <Route path="dash" element={<DashLayout />}>
-            <Route index element={<Welcome />} />
+          <Route path="register" element={<SignUp />} />
+          <Route element={<Prefetch />}>
+            <Route path="dash" element={<DashLayout />}>
+              <Route index element={<Welcome />} />
 
-            <Route path="users">
-              <Route index element={<UsersList />} />
-              <Route path=":userId" element={<EditUser />} />
-              <Route path="new" element={<NewUserForm />} />
-            </Route>
+              <Route path="users">
+                <Route index element={<UsersList />} />
+                <Route path=":userId" element={<EditUser />} />
+              </Route>
 
-            {/* <Route path="habits">
+              {/* <Route path="habits">
               <Route index element={<HabitsList />} />
             </Route>
 
             <Route path="points">
               <Route index element={<PointsList />} />
             </Route> */}
+            </Route>
+            {/* end dash */}
           </Route>
-          {/* end dash */}
         </Route>
+        {/* end Prefetch */}
       </Routes>
     </Box>
   )

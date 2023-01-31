@@ -12,7 +12,6 @@ const pointsApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },
-      keepUnusedDataFor: 5,
       transformResponse: (responseData) => {
         const loadedPoints = responseData.map((record) => {
           // eslint-disable-next-line no-underscore-dangle, no-param-reassign

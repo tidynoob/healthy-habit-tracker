@@ -12,7 +12,6 @@ const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },
-      keepUnusedDataFor: 5,
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((user) => {
           // eslint-disable-next-line no-underscore-dangle, no-param-reassign
@@ -32,9 +31,27 @@ const usersApiSlice = apiSlice.injectEndpoints({
         return [{ type: 'User', id: 'LIST' }]
       }
     }),
+    getUserById: builder.query({
+      query: (id) => `/users/${id}`,
+      validateStatus: (response, result) => {
+        return response.status === 200 && !result.isError
+      },
+      transformResponse: (responseData) => {
+        // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+        responseData.id = responseData._id
+        return usersAdapter.upsertOne(initialState, responseData)
+      },
+      // eslint-disable-next-line no-unused-vars
+      providesTags: (result, error, arg) => {
+        if (result?.id) {
+          return [{ type: 'User', id: result.id }]
+        }
+        return []
+      }
+    }),
     addNewUser: builder.mutation({
       query: (newUserData) => ({
-        url: '/users',
+        url: '/users/new',
         method: 'POST',
         body: { ...newUserData }
       }),
@@ -61,6 +78,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
 
 const {
   useGetUsersQuery,
+  useGetUserByIdQuery,
   useAddNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation
@@ -82,6 +100,7 @@ const {
 export {
   usersApiSlice,
   useGetUsersQuery,
+  useGetUserByIdQuery,
   useAddNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,

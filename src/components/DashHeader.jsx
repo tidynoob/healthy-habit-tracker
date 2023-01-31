@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Box,
   Container,
@@ -7,10 +7,34 @@ import {
   Heading,
   Image,
   HStack,
-  Button
+  Button,
+  Spinner,
+  Text
 } from '@chakra-ui/react'
+import { useSendLogoutMutation } from '../features/auth/authApiSlice'
+
+function LogoutButton({ isLoading, isError, error, sendLogout }) {
+  if (isLoading) return <Spinner />
+  if (isError) return <Text>{error?.data.message}</Text>
+  return (
+    <Button variant="outline" colorScheme="teal" onClick={sendLogout}>
+      Logout
+    </Button>
+  )
+}
 
 function DashHeader() {
+  const navigate = useNavigate()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] =
+    useSendLogoutMutation()
+
+  useEffect(() => {
+    if (isSuccess) navigate('/')
+  }, [isSuccess])
+
+  if (isLoading) return <Spinner />
+  if (isError) return <p>{error.message}</p>
+
   return (
     <Box
       as="header"
@@ -47,12 +71,12 @@ function DashHeader() {
             spacing="4"
             display={{ base: 'none', md: 'inline-block' }}
           >
-            <Button as={Link} to="/register" colorScheme="teal">
-              Sign Up
-            </Button>
-            <Button as={Link} to="/login" variant="outline" colorScheme="teal">
-              Login
-            </Button>
+            <LogoutButton
+              isLoading={isLoading}
+              isError={isError}
+              error={error}
+              sendLogout={sendLogout}
+            />
           </HStack>
         </Flex>
       </Container>

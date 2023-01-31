@@ -12,7 +12,6 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },
-      keepUnusedDataFor: 5,
       transformResponse: (responseData) => {
         const loadedHabits = responseData.map((habit) => {
           // eslint-disable-next-line no-underscore-dangle, no-param-reassign

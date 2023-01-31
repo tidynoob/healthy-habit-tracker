@@ -26,8 +26,9 @@ const data = [
 ]
 
 function HabitTable() {
-  const rows = data.map((row) => (
-    <Tr>
+  const rows = data.map((row, i) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <Tr key={i}>
       <Td textAlign="right">{row.habit}</Td>
       <Td textAlign="center">
         <Checkbox colorScheme="teal" size="lg" isChecked={row.completed} />

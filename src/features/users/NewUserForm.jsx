@@ -136,6 +136,7 @@ const newUserForm = () => {
             Already a user?{' '}
             <RouterLink to="/login">
               <Text
+                as="span"
                 color="teal.500"
                 display="inline"
                 _hover={{ textDecoration: 'underline' }}
