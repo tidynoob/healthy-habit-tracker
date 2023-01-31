@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { BiHide, BiShow } from 'react-icons/bi'
@@ -13,12 +14,16 @@ import {
   Input,
   Container,
   IconButton,
-  Spinner
+  Spinner,
+  Center,
+  Checkbox,
+  HStack
 } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { useLoginMutation } from './authApiSlice'
 import { setCredentials } from './authSlice'
 import Background from '../../components/Background'
+import usePersist from '../../hooks/usePersist'
 
 const newUserForm = () => {
   const userRef = useRef()
@@ -27,6 +32,7 @@ const newUserForm = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [persist, setPersist] = usePersist()
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -72,7 +78,9 @@ const newUserForm = () => {
   }
 
   const content = isLoading ? (
-    <Spinner mt="10" />
+    <Center>
+      <Spinner />
+    </Center>
   ) : (
     <form>
       <Stack spacing="4">
@@ -109,6 +117,14 @@ const newUserForm = () => {
         <Button colorScheme="teal" onClick={onSubmit} isLoading={isLoading}>
           Log In
         </Button>
+        <HStack pl='4' spacing="4">
+          <Checkbox
+            colorScheme="teal"
+            onChange={() => setPersist((prev) => !prev)}
+            checked={persist}
+          />
+          <Text>Remember me</Text>
+        </HStack>
         <Text
           color="red.500"
           ref={errRef}

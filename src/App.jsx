@@ -12,6 +12,7 @@ import UsersList from './features/users/UsersList'
 import SignUp from './features/auth/SignUp'
 import EditUser from './features/users/EditUser'
 import Prefetch from './features/auth/Prefetch'
+import PersistLogin from './features/auth/PersistLogin'
 
 function App() {
   return (
@@ -21,24 +22,26 @@ function App() {
           <Route index element={<Public />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<SignUp />} />
-          <Route element={<Prefetch />}>
-            <Route path="dash" element={<DashLayout />}>
-              <Route index element={<Welcome />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<Prefetch />}>
+              <Route path="dash" element={<DashLayout />}>
+                <Route index element={<Welcome />} />
 
-              <Route path="users">
-                <Route index element={<UsersList />} />
-                <Route path=":userId" element={<EditUser />} />
-              </Route>
+                <Route path="users">
+                  <Route index element={<UsersList />} />
+                  <Route path=":userId" element={<EditUser />} />
+                </Route>
 
-              {/* <Route path="habits">
+                {/* <Route path="habits">
               <Route index element={<HabitsList />} />
             </Route>
 
             <Route path="points">
               <Route index element={<PointsList />} />
             </Route> */}
+              </Route>
+              {/* end dash */}
             </Route>
-            {/* end dash */}
           </Route>
         </Route>
         {/* end Prefetch */}

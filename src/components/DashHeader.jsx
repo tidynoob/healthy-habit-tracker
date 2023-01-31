@@ -9,7 +9,8 @@ import {
   HStack,
   Button,
   Spinner,
-  Text
+  Text,
+  Square
 } from '@chakra-ui/react'
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 
@@ -32,7 +33,7 @@ function DashHeader() {
     if (isSuccess) navigate('/')
   }, [isSuccess])
 
-  if (isLoading) return <Spinner />
+  // if (isLoading) return <Spinner />
   if (isError) return <p>{error.message}</p>
 
   return (
@@ -71,12 +72,17 @@ function DashHeader() {
             spacing="4"
             display={{ base: 'none', md: 'inline-block' }}
           >
-            <LogoutButton
-              isLoading={isLoading}
-              isError={isError}
-              error={error}
-              sendLogout={sendLogout}
-            />
+            {isLoading ? (
+              <Square size="40px">
+                <Spinner />
+              </Square>
+            ) : (
+              <LogoutButton
+                isError={isError}
+                error={error}
+                sendLogout={sendLogout}
+              />
+            )}
           </HStack>
         </Flex>
       </Container>
