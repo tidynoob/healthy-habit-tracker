@@ -6,32 +6,31 @@ import {
   Tr,
   Th,
   Td,
-  Checkbox
+  Checkbox,
+  Spinner
 } from '@chakra-ui/react'
 import React from 'react'
-
-const data = [
-  {
-    habit: 'Habit 1',
-    completed: true
-  },
-  {
-    habit: 'Habit 2',
-    completed: false
-  },
-  {
-    habit: 'Habit 3',
-    completed: true
-  }
-]
+import useAuth from '../../hooks/useAuth'
+import { useGetHabitsForUserQuery } from './habitsApiSlice'
 
 function HabitTable() {
-  const rows = data.map((row, i) => (
+  const { id } = useAuth()
+
+  const { data, isLoading } = useGetHabitsForUserQuery(id)
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
+  const { entities } = data
+  const habits = Object.values(entities)
+
+  const rows = habits?.map((habit, i) => (
     // eslint-disable-next-line react/no-array-index-key
     <Tr key={i}>
-      <Td textAlign="right">{row.habit}</Td>
+      <Td textAlign="right">{habit.name}</Td>
       <Td textAlign="center">
-        <Checkbox colorScheme="teal" size="lg" isChecked={row.completed} />
+        <Checkbox colorScheme="teal" size="lg" />
       </Td>
     </Tr>
   ))

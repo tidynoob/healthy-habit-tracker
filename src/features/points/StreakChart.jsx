@@ -9,6 +9,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { faker } from '@faker-js/faker'
+// import useAuth from '../../hooks/useAuth'
 
 const data = {
   labels: ['Habit 1', 'Habit 2', 'Habit 3'],
@@ -43,6 +44,8 @@ const options = {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
 function StreakChart() {
+  // const { id } = useAuth()
+
   return (
     <Box
       w="full"

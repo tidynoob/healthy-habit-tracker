@@ -31,6 +31,30 @@ const habitsApiSlice = apiSlice.injectEndpoints({
         return [{ type: 'habit', id: 'LIST' }]
       }
     }),
+    getHabitsForUser: builder.query({
+      query: (id) => `/users/${id}/habits`,
+      validateStatus: (response, result) => {
+        return response.status === 200 && !result.isError
+      },
+      transformResponse: (responseData) => {
+        const loadedHabits = responseData.map((habit) => {
+          // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+          habit.id = habit._id
+          return habit
+        })
+        return habitsAdapter.setAll(initialState, loadedHabits)
+      },
+      // eslint-disable-next-line no-unused-vars
+      providesTags: (result, error, arg) => {
+        if (result?.ids) {
+          return [
+            { type: 'habit', id: 'LIST' },
+            ...result.ids.map((id) => ({ type: 'habit', id }))
+          ]
+        }
+        return [{ type: 'habit', id: 'LIST' }]
+      }
+    }),
     addNewHabit: builder.mutation({
       query: (newHabitData) => ({
         url: '/habits',
@@ -60,6 +84,7 @@ const habitsApiSlice = apiSlice.injectEndpoints({
 
 const {
   useGetHabitsQuery,
+  useGetHabitsForUserQuery,
   useAddNewHabitMutation,
   useDeleteHabitMutation,
   useUpdateHabitMutation
@@ -83,6 +108,7 @@ const {
 export {
   habitsApiSlice,
   useGetHabitsQuery,
+  useGetHabitsForUserQuery,
   useAddNewHabitMutation,
   useDeleteHabitMutation,
   useUpdateHabitMutation,
