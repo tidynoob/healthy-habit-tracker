@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Checkbox, Spinner } from '@chakra-ui/react'
+import { Checkbox, Skeleton } from '@chakra-ui/react'
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import { selectDate } from '../points/pointsSlice'
@@ -15,19 +15,18 @@ function HabitCompletion({ habit }) {
   const date = useSelector(selectDate)
   const [addNewPoint] = useAddNewPointMutation()
   const [deletePoint] = useDeletePointMutation()
-  const { data, isLoading } = useGetPointsForHabitQuery(id)
-
+  const { data, isLoading } = useGetPointsForHabitQuery(id, 'HabitCompletion')
   const [isChecked, setIsChecked] = useState(false)
 
   useEffect(() => {
-    const alreadyCompleted = async () => {
-      const entities = (await data?.entities) || {}
-      const points = (await Object.values(entities)) || []
-      const test2 = await points.find(
+    const alreadyCompleted = () => {
+      const entities = data?.entities || {}
+      const points = Object.values(entities) || []
+      const check = points.find(
         (p) =>
           format(parseISO(p.date), 'MM/dd/yyyy') === format(date, 'MM/dd/yyyy')
       )
-      const result = !!(await test2)
+      const result = !!check
       setIsChecked(result)
     }
     alreadyCompleted()
@@ -42,7 +41,7 @@ function HabitCompletion({ habit }) {
     setIsChecked(!isChecked)
   }
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Skeleton />
 
   return (
     <Checkbox

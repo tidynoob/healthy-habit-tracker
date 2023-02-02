@@ -35,7 +35,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled
           // eslint-disable-next-line no-console
-          console.log('data', data)
+          // console.log('data', data)
           const { accessToken } = data
           dispatch(setCredentials({ accessToken }))
         } catch (err) {

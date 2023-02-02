@@ -1,6 +1,7 @@
-import { HStack, IconButton, Tr, Td, Text } from '@chakra-ui/react'
+import { HStack, Tr, Td, Text } from '@chakra-ui/react'
 import React from 'react'
 import HabitCompletion from './HabitCompletion'
+import HabitDelete from './HabitDelete'
 
 function HabitRow({ habit }) {
   const { name } = habit
@@ -9,7 +10,7 @@ function HabitRow({ habit }) {
     <Tr>
       <Td>
         <HStack>
-          <IconButton />
+          <HabitDelete habit={habit} />
           <Text>{name}</Text>
         </HStack>
       </Td>
