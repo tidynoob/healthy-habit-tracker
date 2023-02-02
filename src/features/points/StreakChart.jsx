@@ -44,8 +44,6 @@ const options = {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
 function StreakChart() {
-  // const { id } = useAuth()
-
   return (
     <Box
       w="full"

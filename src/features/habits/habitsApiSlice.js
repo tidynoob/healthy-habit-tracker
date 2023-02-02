@@ -72,10 +72,10 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       invalidatesTages: (result, error, arg) => [{ type: 'habit', id: arg.id }]
     }),
     deleteHabit: builder.mutation({
-      query: ({ id }) => ({
-        url: '/habits',
-        method: 'DELETE',
-        body: { id }
+      query: (id) => ({
+        url: `/habits/${id}`,
+        method: 'DELETE'
+        // body: { id }
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'habit', id: arg.id }]
     })

@@ -2,11 +2,19 @@ import React from 'react'
 import { IconButton } from '@chakra-ui/react'
 import { AiOutlineDelete, AiFillDelete } from 'react-icons/ai'
 import { useDeleteHabitMutation } from './habitsApiSlice'
+import useOutsideClick from '../../hooks/useOutsideClick'
 
 function HabitDelete({ habit }) {
   const { id } = habit
   const [confirm, setConfirm] = React.useState(false)
   const [deleteHabit] = useDeleteHabitMutation()
+
+  const handleClickOutside = () => {
+    setConfirm(false)
+    console.log('clicked outside')
+  }
+
+  const ref = useOutsideClick(handleClickOutside)
 
   const handleClick = async () => {
     if (confirm) {
@@ -19,10 +27,17 @@ function HabitDelete({ habit }) {
 
   return (
     <IconButton
+      ref={ref}
       variant={confirm ? 'solid' : 'ghost'}
       colorScheme={confirm ? 'red' : null}
       onClick={handleClick}
-      icon={confirm ? <AiFillDelete /> : <AiOutlineDelete />}
+      icon={
+        confirm ? (
+          <AiFillDelete onClick={handleClick} pointerEvents="none" />
+        ) : (
+          <AiOutlineDelete onClick={handleClick} pointerEvents="none" />
+        )
+      }
     />
   )
 }

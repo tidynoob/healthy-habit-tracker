@@ -9,15 +9,21 @@ import {
 import { BiPlusCircle, BiCheckCircle } from 'react-icons/bi'
 import { useAddNewHabitMutation } from './habitsApiSlice'
 import useAuth from '../../hooks/useAuth'
+import useOutsideClick from '../../hooks/useOutsideClick'
 
 function NewHabitButton() {
   const { id } = useAuth()
-  // console.log(id)
 
   const [habitName, setHabitName] = React.useState('')
   const [confirm, setConfirm] = React.useState(false)
 
   const [addNewHabit, { isLoading }] = useAddNewHabitMutation()
+
+  const handleClickOutside = () => {
+    setConfirm(false)
+  }
+
+  const ref = useOutsideClick(handleClickOutside)
 
   const handleClick = async () => {
     if (habitName === '') {
@@ -49,9 +55,16 @@ function NewHabitButton() {
       />
       <InputRightElement>
         <IconButton
+          ref={ref}
           colorScheme={confirm ? 'green' : null}
           onClick={handleClick}
-          icon={confirm ? <BiCheckCircle /> : <BiPlusCircle />}
+          icon={
+            confirm ? (
+              <BiCheckCircle onClick={handleClick} pointerEvents="none" />
+            ) : (
+              <BiPlusCircle onClick={handleClick} pointerEvents="none" />
+            )
+          }
         />
       </InputRightElement>
     </InputGroup>
