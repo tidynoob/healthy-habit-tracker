@@ -5,13 +5,12 @@ import {
   Tbody,
   Tr,
   Th,
-  Td,
-  Checkbox,
   Spinner
 } from '@chakra-ui/react'
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
 import { useGetHabitsForUserQuery } from './habitsApiSlice'
+import HabitRow from './HabitRow'
 
 function HabitTable() {
   const { id } = useAuth()
@@ -27,12 +26,7 @@ function HabitTable() {
 
   const rows = habits?.map((habit, i) => (
     // eslint-disable-next-line react/no-array-index-key
-    <Tr key={i}>
-      <Td textAlign="right">{habit.name}</Td>
-      <Td textAlign="center">
-        <Checkbox colorScheme="teal" size="lg" />
-      </Td>
-    </Tr>
+    <HabitRow key={i} habit={habit} />
   ))
 
   return (
