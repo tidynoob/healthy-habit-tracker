@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Skeleton } from '@chakra-ui/react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +10,11 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { faker } from '@faker-js/faker'
-// import useAuth from '../../hooks/useAuth'
+// import { useSelector } from 'react-redux'
+import useAuth from '../../hooks/useAuth'
+import { useGetHabitsForUserQuery } from '../habits/habitsApiSlice'
+// import { selectDate } from './pointsSlice'
+import { useGetPointsForHabitQuery } from './pointsApiSlice'
 
 const data = {
   labels: ['Habit 1', 'Habit 2', 'Habit 3'],
@@ -44,6 +49,21 @@ const options = {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
 function StreakChart() {
+  // const { id } = useAuth()
+  // // const date = useSelector(selectDate)
+  // const { data: habitData, isLoading: isHabitsLoading } =
+  //   useGetHabitsForUserQuery(id)
+
+  // console.log(habitData)
+
+  // if (isHabitsLoading) {
+  //   return <Skeleton />
+  // }
+
+  // console.log(habitIds)
+
+  // console.log(pointData)
+
   return (
     <Box
       w="full"

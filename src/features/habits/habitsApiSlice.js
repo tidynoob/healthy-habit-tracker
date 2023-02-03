@@ -64,12 +64,12 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: 'habit', id: 'LIST' }]
     }),
     updateHabit: builder.mutation({
-      query: (updatedHabitData) => ({
-        url: '/habits',
+      query: ({ id, name, user, date }) => ({
+        url: `/habits/${id}`,
         method: 'PATCH',
-        body: { ...updatedHabitData }
+        body: { name, user, date }
       }),
-      invalidatesTages: (result, error, arg) => [{ type: 'habit', id: arg.id }]
+      invalidatesTags: (result, error, arg) => [{ type: 'habit', id: arg.id }]
     }),
     deleteHabit: builder.mutation({
       query: (id) => ({
@@ -90,10 +90,11 @@ const {
   useUpdateHabitMutation
 } = habitsApiSlice
 
-const selectHabitsResult = habitsApiSlice.endpoints.getHabits.select()
+const selectUserHabitsResult =
+  habitsApiSlice.endpoints.getHabitsForUser.select()
 
 const selectHabitsData = createSelector(
-  selectHabitsResult,
+  selectUserHabitsResult,
   (habitsResult) => habitsResult.data
 )
 

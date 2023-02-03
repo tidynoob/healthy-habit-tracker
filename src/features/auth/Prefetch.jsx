@@ -9,7 +9,7 @@ function Prefetch() {
   useEffect(() => {
     // eslint-disable-next-line no-console
     console.log('Prefetching data...')
-    // const habits = store.dispatch(habitsApiSlice.endpoints.getHabits.initiate())
+    // const habits = store.dispatch(habitsApiSlice.endpoints.getHabitsForUser.initiate())
     // const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate())
     // const points = store.dispatch(pointsApiSlice.endpoints.getPoints.initiate())
 

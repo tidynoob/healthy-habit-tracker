@@ -1,47 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Checkbox, Skeleton } from '@chakra-ui/react'
-import format from 'date-fns/format'
-import parseISO from 'date-fns/parseISO'
+import { Checkbox } from '@chakra-ui/react'
+// import format from 'date-fns/format'
+// import parseISO from 'date-fns/parseISO'
+import { isSameDay, parseISO } from 'date-fns'
 import { selectDate } from '../points/pointsSlice'
-import {
-  useGetPointsForHabitQuery,
-  useAddNewPointMutation,
-  useDeletePointMutation
-} from '../points/pointsApiSlice'
+import { useUpdateHabitMutation } from './habitsApiSlice'
+import useAuth from '../../hooks/useAuth'
 
 function HabitCompletion({ habit }) {
-  const { _id: id } = habit
+  const { id: userId } = useAuth()
+  const { _id: id, name: habitName, points } = habit
   const date = useSelector(selectDate)
-  const [addNewPoint] = useAddNewPointMutation()
-  const [deletePoint] = useDeletePointMutation()
-  const { data, isLoading } = useGetPointsForHabitQuery(id, 'HabitCompletion')
+  const preChecked = !!points.find((point) => {
+    return isSameDay(parseISO(point), date)
+  })
+
+  const [updateHabit] = useUpdateHabitMutation()
   const [isChecked, setIsChecked] = useState(false)
 
   useEffect(() => {
-    const alreadyCompleted = () => {
-      const entities = data?.entities || {}
-      const points = Object.values(entities) || []
-      const check = points.find(
-        (p) =>
-          format(parseISO(p.date), 'MM/dd/yyyy') === format(date, 'MM/dd/yyyy')
-      )
-      const result = !!check
-      setIsChecked(result)
-    }
-    alreadyCompleted()
-  }, [isLoading, date])
+    setIsChecked(preChecked)
+  }, [preChecked])
 
   const handleClick = async () => {
+    const habitObject = {
+      id,
+      name: String(habitName),
+      user: String(userId),
+      date
+    }
     if (isChecked) {
-      await deletePoint({ habitId: id, date })
+      await updateHabit(habitObject)
     } else {
-      await addNewPoint({ habit: String(id), date })
+      await updateHabit(habitObject)
     }
     setIsChecked(!isChecked)
   }
-
-  if (isLoading) return <Skeleton />
 
   return (
     <Checkbox

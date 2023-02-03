@@ -11,7 +11,6 @@ function HabitDelete({ habit }) {
 
   const handleClickOutside = () => {
     setConfirm(false)
-    console.log('clicked outside')
   }
 
   const ref = useOutsideClick(handleClickOutside)
@@ -27,6 +26,7 @@ function HabitDelete({ habit }) {
 
   return (
     <IconButton
+      size="sm"
       ref={ref}
       variant={confirm ? 'solid' : 'ghost'}
       colorScheme={confirm ? 'red' : null}
