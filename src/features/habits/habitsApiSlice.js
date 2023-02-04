@@ -38,8 +38,8 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       },
       transformResponse: (responseData) => {
         const loadedHabits = responseData.map((habit) => {
-          // eslint-disable-next-line no-underscore-dangle, no-param-reassign
           habit.id = habit._id
+
           return habit
         })
         return habitsAdapter.setAll(initialState, loadedHabits)
@@ -90,30 +90,11 @@ const {
   useUpdateHabitMutation
 } = habitsApiSlice
 
-const selectUserHabitsResult =
-  habitsApiSlice.endpoints.getHabitsForUser.select()
-
-const selectHabitsData = createSelector(
-  selectUserHabitsResult,
-  (habitsResult) => habitsResult.data
-)
-
-const {
-  selectAll: selectAllHabits,
-  selectById: selectHabitById,
-  selectIds: selectHabitIds
-} = habitsAdapter.getSelectors(
-  (state) => selectHabitsData(state) ?? initialState
-)
-
 export {
   habitsApiSlice,
   useGetHabitsQuery,
   useGetHabitsForUserQuery,
   useAddNewHabitMutation,
   useDeleteHabitMutation,
-  useUpdateHabitMutation,
-  selectAllHabits,
-  selectHabitById,
-  selectHabitIds
+  useUpdateHabitMutation
 }
