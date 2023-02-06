@@ -152,13 +152,18 @@ const newUserForm = () => {
   return (
     <Background>
       <Container
+        px={{ base: '4', md: '0' }}
+        >
+      <Container
         bg="white"
         p="4"
         borderRadius="base"
         mt="10"
         maxW={{ base: 'full', md: 'sm' }}
+        mx="auto"
       >
         {content}
+      </Container>
       </Container>
     </Background>
   )

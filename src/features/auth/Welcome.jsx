@@ -5,6 +5,7 @@ import StreakChart from '../habits/StreakChart'
 import DatePicker from '../date/DatePicker'
 import HabitTable from '../habits/HabitTable'
 import NewHabitButton from '../habits/NewHabitButton'
+import Heatmap from '../habits/Heatmap'
 
 function Welcome() {
   // const date = new Date()
@@ -14,10 +15,15 @@ function Welcome() {
   // }).format(date)
 
   return (
-    <Box display="grid" gridTemplateColumns="1fr 3fr" gap="4">
+    <Box
+      display="grid"
+      gridTemplateColumns={{ base: '1fr', md: '1fr 3fr' }}
+      gap="4"
+    >
       <Box
         gridColumnStart={1}
-        gridColumnEnd={2}
+        gridColumnEnd={{ base: '-1', md: '2' }}
+        gridRow={{ base: '1 / span 1', md: '1 / span 2' }}
         bg="white"
         borderRadius="base"
         p="4"
@@ -29,7 +35,21 @@ function Welcome() {
         <HabitTable />
         <NewHabitButton />
       </Box>
-      <StreakChart />
+      <Box gridColumnStart={{ base: '1', md: '2' }} maxW="100%">
+        <StreakChart />
+      </Box>
+      <Box
+        gridColumnStart={{ base: '1', md: '2' }}
+        gridColumnEnd={-1}
+        bg="white"
+        borderRadius="base"
+        p="4"
+        maxW="full"
+        overflowX={{ base: 'scroll', xl: 'hidden' }}
+        dir="rtl"
+      >
+        <Heatmap />
+      </Box>
     </Box>
   )
 }

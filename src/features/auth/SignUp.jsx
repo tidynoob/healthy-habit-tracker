@@ -92,80 +92,87 @@ const newUserForm = () => {
 
   return (
     <Background>
-      <Container
-        bg="white"
-        p="4"
-        borderRadius="base"
-        maxW={{ base: 'full', md: 'sm' }}
-        mt="10"
-      >
-        <form>
-          <Stack spacing="4">
-            <Heading as="h1" fontSize="2xl" textAlign="center">
-              Sign Up
-            </Heading>
-            <FormControl id="email" isRequired isInvalid={!validEmail}>
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" value={email} onChange={onEmailChange} />
-            </FormControl>
-            <FormControl id="username" isRequired isInvalid={!validUsername}>
-              <FormLabel>Username</FormLabel>
-              <Input type="text" value={username} onChange={onUsernameChange} />
-            </FormControl>
-            <FormControl id="password" isRequired isInvalid={!validPassword}>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
+      <Container px={{ base: '4', md: '0' }}>
+        <Container
+          bg="white"
+          p="4"
+          borderRadius="base"
+          maxW={{ base: 'full', md: 'sm' }}
+          mt="10"
+          // mx={{ base: '4', lg: '0' }}
+        >
+          <form>
+            <Stack spacing="4">
+              <Heading as="h1" fontSize="2xl" textAlign="center">
+                Sign Up
+              </Heading>
+              <FormControl id="email" isRequired isInvalid={!validEmail}>
+                <FormLabel>Email address</FormLabel>
+                <Input type="email" value={email} onChange={onEmailChange} />
+              </FormControl>
+              <FormControl id="username" isRequired isInvalid={!validUsername}>
+                <FormLabel>Username</FormLabel>
                 <Input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={onPasswordChange}
+                  type="text"
+                  value={username}
+                  onChange={onUsernameChange}
                 />
-                <InputRightElement h="full">
-                  {/* <Button
+              </FormControl>
+              <FormControl id="password" isRequired isInvalid={!validPassword}>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={onPasswordChange}
+                  />
+                  <InputRightElement h="full">
+                    {/* <Button
                   h="full"
                   variant="ghost"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <BiHide /> : <BiShow />}
                 </Button> */}
-                  <IconButton
-                    aria-label="Show Password"
-                    variant="ghost"
-                    icon={showPassword ? <BiHide /> : <BiShow />}
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            <Button
-              colorScheme="teal"
-              onClick={onSubmit}
-              isLoading={isLoading || isLoginLoading}
-              isDisabled={!validUser}
-            >
-              Sign Up
-            </Button>
-            <Text
-              color="red.500"
-              visibility={isError || isLoginError ? 'visible' : 'hidden'}
-            >
-              {error?.data?.message || loginError?.data?.message}
-            </Text>
-            <Text align="center">
-              Already a user?{' '}
-              <RouterLink to="/login">
-                <Text
-                  as="span"
-                  color="teal.500"
-                  display="inline"
-                  _hover={{ textDecoration: 'underline' }}
-                >
-                  Log In
-                </Text>
-              </RouterLink>{' '}
-            </Text>
-          </Stack>
-        </form>
+                    <IconButton
+                      aria-label="Show Password"
+                      variant="ghost"
+                      icon={showPassword ? <BiHide /> : <BiShow />}
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Button
+                colorScheme="teal"
+                onClick={onSubmit}
+                isLoading={isLoading || isLoginLoading}
+                isDisabled={!validUser}
+              >
+                Sign Up
+              </Button>
+              <Text
+                color="red.500"
+                visibility={isError || isLoginError ? 'visible' : 'hidden'}
+              >
+                {error?.data?.message || loginError?.data?.message}
+              </Text>
+              <Text align="center">
+                Already a user?{' '}
+                <RouterLink to="/login">
+                  <Text
+                    as="span"
+                    color="teal.500"
+                    display="inline"
+                    _hover={{ textDecoration: 'underline' }}
+                  >
+                    Log In
+                  </Text>
+                </RouterLink>{' '}
+              </Text>
+            </Stack>
+          </form>
+        </Container>
       </Container>
     </Background>
   )

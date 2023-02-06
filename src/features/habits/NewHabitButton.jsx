@@ -47,7 +47,7 @@ function NewHabitButton() {
   }
 
   return (
-    <InputGroup>
+    <InputGroup mt="auto" w="full">
       <Input
         placeholder="Add Habit"
         value={habitName}
@@ -56,7 +56,8 @@ function NewHabitButton() {
       <InputRightElement>
         <IconButton
           ref={ref}
-          colorScheme={confirm ? 'green' : null}
+          variant="ghost"
+          colorScheme={confirm ? 'green' : 'white'}
           onClick={handleClick}
           icon={
             confirm ? (

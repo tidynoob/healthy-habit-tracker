@@ -41,7 +41,7 @@ function DatePicker() {
   }
 
   return (
-    <FormControl display="flex" alignItems="center" gap="4">
+    <FormControl display="flex" alignItems="center" gap="4" w="full">
       <FormLabel fontWeight="bold" htmlFor="date" whiteSpace="nowrap" m="0">
         Select Date
       </FormLabel>

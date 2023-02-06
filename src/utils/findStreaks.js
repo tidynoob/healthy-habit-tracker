@@ -37,7 +37,7 @@ function findCurrentStreak(dates, asOfDate) {
   }
   for (let i = 0; i < sortedDates.length; i++) {
     const date = sortedDates[i]
-    console.log(addDays(sortedDates[i - 1], 1))
+    // console.log(addDays(sortedDates[i - 1], 1))
     if (i === 0 || isSameDay(date, addDays(sortedDates[i - 1], -1))) {
       currentStreak.push(date)
     } else {

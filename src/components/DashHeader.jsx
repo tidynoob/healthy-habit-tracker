@@ -41,7 +41,7 @@ function DashHeader() {
       as="header"
       w="full"
       background="white"
-      px={{ base: '1rem', lg: '0' }}
+      px={{ base: '4', lg: '0' }}
       py="4"
     >
       <Container

@@ -30,7 +30,7 @@ function HabitTable() {
   ))
 
   return (
-    <TableContainer>
+    <TableContainer w="full">
       <Table variant="simple">
         <Thead>
           <Tr>

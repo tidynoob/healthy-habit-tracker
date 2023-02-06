@@ -17,7 +17,7 @@ function DashLayout() {
       backgroundRepeat="no-repeat"
     >
       <DashHeader />
-      <Box as="main" w="full" py="4" px={{ base: '1rem', lg: '0' }}>
+      <Box as="main" w="full" py="4" px={{ base: '4', lg: '0' }}>
         <Container
           maxW={{
             base: 'full',

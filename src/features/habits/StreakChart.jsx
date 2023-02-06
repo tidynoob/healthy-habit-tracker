@@ -18,6 +18,7 @@ import { findMaxStreak, findCurrentStreak } from '../../utils/findStreaks'
 const options = {
   indexAxis: 'y',
   responsive: true,
+  // maintainAspectRatio: false,
   scales: {
     x: {
       beginAtZero: true,
@@ -80,7 +81,15 @@ function StreakChart() {
   }
 
   return (
-    <Box w="full" bg="white" borderRadius="base" p="4" position="relative">
+    <Box
+      bg="white"
+      borderRadius="base"
+      p="4"
+      position="relative"
+      w="full"
+      minW="300px"
+      maxW="100%"
+    >
       <Bar data={chartData} options={options} />
     </Box>
   )
