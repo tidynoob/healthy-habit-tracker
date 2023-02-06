@@ -36,7 +36,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Habit', 'User', 'Point'],
+  tagTypes: ['Habit', 'User'],
   // eslint-disable-next-line no-unused-vars
   endpoints: (builder) => ({})
 })

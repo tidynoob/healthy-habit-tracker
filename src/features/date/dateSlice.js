@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 // import { format } from 'date-fns'
 
-const pointsSlice = createSlice({
-  name: 'points',
+const dateSlice = createSlice({
+  name: 'date',
   initialState: { date: new Date() },
   reducers: {
     setDate: (state, action) => {
@@ -14,8 +14,8 @@ const pointsSlice = createSlice({
   }
 })
 
-export const { setDate } = pointsSlice.actions
+export const { setDate } = dateSlice.actions
 
-export default pointsSlice.reducer
+export default dateSlice.reducer
 
-export const selectDate = (state) => state.points.date
+export const selectDate = (state) => state.date.date

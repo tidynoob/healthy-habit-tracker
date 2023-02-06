@@ -3,7 +3,7 @@ import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 import { FormControl, FormLabel } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 // import format from 'date-fns/format'
-import { setDate as setGlobalDate } from '../features/points/pointsSlice'
+import { setDate as setGlobalDate } from './dateSlice'
 
 function DatePicker() {
   const [date, setDate] = useState(new Date())

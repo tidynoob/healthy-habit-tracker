@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import apiSlice from './api/apiSlice'
 import authReducer from '../features/auth/authSlice'
-import pointsReducer from '../features/points/pointsSlice'
+import dateReducer from '../features/date/dateSlice'
 
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
-    points: pointsReducer
+    date: dateReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,7 +4,7 @@ import { Checkbox } from '@chakra-ui/react'
 // import format from 'date-fns/format'
 // import parseISO from 'date-fns/parseISO'
 import { isSameDay, parseISO } from 'date-fns'
-import { selectDate } from '../points/pointsSlice'
+import { selectDate } from '../date/dateSlice'
 import { useUpdateHabitMutation } from './habitsApiSlice'
 import useAuth from '../../hooks/useAuth'
 

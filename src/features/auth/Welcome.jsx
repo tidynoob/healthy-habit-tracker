@@ -1,8 +1,8 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 import { Box } from '@chakra-ui/react'
-import StreakChart from '../points/StreakChart'
-import DatePicker from '../../components/DatePicker'
+import StreakChart from '../habits/StreakChart'
+import DatePicker from '../date/DatePicker'
 import HabitTable from '../habits/HabitTable'
 import NewHabitButton from '../habits/NewHabitButton'
 
