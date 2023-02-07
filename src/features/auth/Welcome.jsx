@@ -5,7 +5,7 @@ import StreakChart from '../habits/StreakChart'
 import DatePicker from '../date/DatePicker'
 import HabitTable from '../habits/HabitTable'
 import NewHabitButton from '../habits/NewHabitButton'
-import Heatmap from '../habits/Heatmap'
+import Heatmap from '../habits/HabitHeatmap/Heatmap'
 
 function Welcome() {
   // const date = new Date()

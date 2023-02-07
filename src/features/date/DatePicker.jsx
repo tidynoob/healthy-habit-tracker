@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { SingleDatepicker } from 'chakra-dayzed-datepicker'
 import { FormControl, FormLabel } from '@chakra-ui/react'
-import { useDispatch } from 'react-redux'
-// import format from 'date-fns/format'
-import { setDate as setGlobalDate } from './dateSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectDate, setDate as setGlobalDate } from './dateSlice'
 
 function DatePicker() {
-  const [date, setDate] = useState(new Date())
+  const globalDate = useSelector(selectDate)
+  const [date, setDate] = useState(globalDate)
   //   console.log(date)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(setGlobalDate({ date }))
   }, [date])
+
+  useEffect(() => {
+    setDate(globalDate)
+  }, [globalDate])
 
   const config = {
     dateNavBtnProps: {
