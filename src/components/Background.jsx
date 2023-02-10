@@ -17,7 +17,7 @@ import LoginButton from '../features/auth/LoginButton'
 // <Link to="/login">Login</Link>
 
 function Background({ children }) {
-  const { isAuthenticated } = useAuth0()
+  // const { isAuthenticated } = useAuth0()
   return (
     <Box
       minH="100vh"
@@ -60,9 +60,9 @@ function Background({ children }) {
               </Heading>
             </Flex>
             <HStack spacing="4" display={{ base: 'none', md: 'inline-block' }}>
-              {!isAuthenticated && <SignupButton />}
+              {/* {!isAuthenticated && <SignupButton />}
               {!isAuthenticated && <LoginButton />}
-              {isAuthenticated && <LogoutButton />}
+              {isAuthenticated && <LogoutButton />} */}
             </HStack>
           </Flex>
         </Container>

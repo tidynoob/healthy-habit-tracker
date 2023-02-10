@@ -59,19 +59,8 @@ function Public() {
               with our easy-to-use tracker
             </Text>
             <HStack spacing="4">
-              <Button as={Link} to="/register" size="lg" colorScheme="teal">
-                Sign Up
-              </Button>
-              <Button
-                as={Link}
-                to="/login"
-                variant="outline"
-                size="lg"
-                colorScheme="teal"
-                bg="white"
-              >
-                Login
-              </Button>
+              <SignupButton />
+              <LoginButton />
             </HStack>
           </Flex>
         </Container>

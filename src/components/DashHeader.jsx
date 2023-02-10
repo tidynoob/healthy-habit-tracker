@@ -18,7 +18,7 @@ import SignupButton from '../features/auth/SignUpButton'
 import LoginButton from '../features/auth/LoginButton'
 
 function DashHeader() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const { isAuthenticated } = useAuth0()
 

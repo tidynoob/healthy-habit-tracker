@@ -3,6 +3,7 @@ import React from 'react'
 
 function ProfilePage() {
   const { user } = useAuth0()
+  console.log('user', user)
 
   if (!user) {
     return null

@@ -13,6 +13,7 @@ import './HabitHeatmap.css'
 
 function Heatmap() {
   const { id } = useAuth()
+
   const endDate = new Date()
   const startDate = subDays(endDate, 365)
   const dispatch = useDispatch()
