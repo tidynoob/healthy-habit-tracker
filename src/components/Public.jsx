@@ -10,6 +10,8 @@ import {
   Button
 } from '@chakra-ui/react'
 import Background from './Background'
+import SignupButton from '../features/auth/SignUpButton'
+import LoginButton from '../features/auth/LoginButton'
 
 // <Link to="/login">Login</Link>
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Box } from '@chakra-ui/react'
+import { useAuth0 } from '@auth0/auth0-react'
 import Layout from './components/Layout'
 import Public from './components/Public'
 import Login from './features/auth/Login'
@@ -12,38 +13,46 @@ import UsersList from './features/users/UsersList'
 import SignUp from './features/auth/SignUp'
 import EditUser from './features/users/EditUser'
 import Prefetch from './features/auth/Prefetch'
-import PersistLogin from './features/auth/PersistLogin'
+// import PersistLogin from './features/auth/PersistLogin'
+import ProfilePage from './features/auth/Profile'
 
 function App() {
+  const { isLoading } = useAuth0()
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <Box minH="100vh">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Public />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<SignUp />} />
-          <Route element={<PersistLogin />}>
-            <Route element={<Prefetch />}>
-              <Route path="dash" element={<DashLayout />}>
-                <Route index element={<Welcome />} />
+          {/* <Route path="login" element={<Login />} /> */}
+          {/* <Route path="register" element={<SignUp />} /> */}
+          {/* <Route element={<PersistLogin />}> */}
+          <Route path="profile" element={<ProfilePage />} />
+          <Route element={<Prefetch />}>
+            <Route path="dash" element={<DashLayout />}>
+              <Route index element={<Welcome />} />
 
-                <Route path="users">
-                  <Route index element={<UsersList />} />
-                  <Route path=":userId" element={<EditUser />} />
-                </Route>
+              <Route path="users">
+                <Route index element={<UsersList />} />
+                <Route path=":userId" element={<EditUser />} />
+              </Route>
 
-                {/* <Route path="habits">
+              {/* <Route path="habits">
               <Route index element={<HabitsList />} />
             </Route>
 
             <Route path="points">
               <Route index element={<PointsList />} />
             </Route> */}
-              </Route>
-              {/* end dash */}
             </Route>
+            {/* end dash */}
           </Route>
         </Route>
+        {/* </Route> */}
         {/* end Prefetch */}
       </Routes>
     </Box>

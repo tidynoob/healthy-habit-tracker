@@ -9,10 +9,15 @@ import {
   HStack,
   Button
 } from '@chakra-ui/react'
+import { useAuth0 } from '@auth0/auth0-react'
+import LogoutButton from '../features/auth/LogoutButton'
+import SignupButton from '../features/auth/SignUpButton'
+import LoginButton from '../features/auth/LoginButton'
 
 // <Link to="/login">Login</Link>
 
 function Background({ children }) {
+  const { isAuthenticated } = useAuth0()
   return (
     <Box
       minH="100vh"
@@ -55,17 +60,9 @@ function Background({ children }) {
               </Heading>
             </Flex>
             <HStack spacing="4" display={{ base: 'none', md: 'inline-block' }}>
-              <Button as={Link} to="/register" colorScheme="teal">
-                Sign Up
-              </Button>
-              <Button
-                as={Link}
-                to="/login"
-                variant="outline"
-                colorScheme="teal"
-              >
-                Login
-              </Button>
+              {!isAuthenticated && <SignupButton />}
+              {!isAuthenticated && <LoginButton />}
+              {isAuthenticated && <LogoutButton />}
             </HStack>
           </Flex>
         </Container>

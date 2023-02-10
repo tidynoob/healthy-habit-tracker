@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import store from './app/store'
 import App from './App'
 import '@fontsource/inter/variable.css'
+import Auth0ProviderWithNavigate from './app/auth0-provider-with-navigate'
 
 const theme = extendTheme({
   fonts: {
@@ -26,9 +27,11 @@ root.render(
     <Provider store={store}>
       <ChakraProvider theme={theme}>
         <BrowserRouter>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
+          <Auth0ProviderWithNavigate>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </Auth0ProviderWithNavigate>
         </BrowserRouter>
       </ChakraProvider>
     </Provider>

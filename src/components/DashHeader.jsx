@@ -12,29 +12,15 @@ import {
   Text,
   Square
 } from '@chakra-ui/react'
-import { useSendLogoutMutation } from '../features/auth/authApiSlice'
-
-function LogoutButton({ isLoading, isError, error, sendLogout }) {
-  if (isLoading) return <Spinner />
-  if (isError) return <Text>{error?.data.message}</Text>
-  return (
-    <Button variant="outline" colorScheme="teal" onClick={sendLogout}>
-      Logout
-    </Button>
-  )
-}
+import { useAuth0 } from '@auth0/auth0-react'
+import LogoutButton from '../features/auth/LogoutButton'
+import SignupButton from '../features/auth/SignUpButton'
+import LoginButton from '../features/auth/LoginButton'
 
 function DashHeader() {
   const navigate = useNavigate()
-  const [sendLogout, { isLoading, isSuccess, isError, error }] =
-    useSendLogoutMutation()
 
-  useEffect(() => {
-    if (isSuccess) navigate('/')
-  }, [isSuccess])
-
-  // if (isLoading) return <Spinner />
-  if (isError) return <p>{error.message}</p>
+  const { isAuthenticated } = useAuth0()
 
   return (
     <Box
@@ -72,17 +58,9 @@ function DashHeader() {
             spacing="4"
             display={{ base: 'none', md: 'inline-block' }}
           >
-            {isLoading ? (
-              <Square size="40px">
-                <Spinner />
-              </Square>
-            ) : (
-              <LogoutButton
-                isError={isError}
-                error={error}
-                sendLogout={sendLogout}
-              />
-            )}
+            {!isAuthenticated && <SignupButton />}
+            {!isAuthenticated && <LoginButton />}
+            {isAuthenticated && <LogoutButton />}
           </HStack>
         </Flex>
       </Container>
