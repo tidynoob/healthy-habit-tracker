@@ -7,12 +7,14 @@ import {
   Text
 } from '@chakra-ui/react'
 import { BiPlusCircle, BiCheckCircle } from 'react-icons/bi'
+import { useAuth0 } from '@auth0/auth0-react'
 import { useAddNewHabitMutation } from './habitsApiSlice'
 import useAuth from '../../hooks/useAuth'
 import useOutsideClick from '../../hooks/useOutsideClick'
 
 function NewHabitButton() {
-  const { id } = useAuth()
+  const { user } = useAuth0()
+  const { sub: id } = user
 
   const [habitName, setHabitName] = React.useState('')
   const [confirm, setConfirm] = React.useState(false)
@@ -33,7 +35,7 @@ function NewHabitButton() {
       // Add habit to database
       await addNewHabit({
         name: habitName,
-        user: String(id)
+        userId: String(id)
       })
       setHabitName('')
       setConfirm(false)
