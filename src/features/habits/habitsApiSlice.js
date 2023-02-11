@@ -32,12 +32,16 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       }
     }),
     getHabitsForUser: builder.query({
-      query: (id) => `/users/${id}/habits`,
+      query: (id) => `/habits/user/${id}`,
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },
       transformResponse: (responseData) => {
-        const loadedHabits = responseData.map((habit) => {
+        if (!responseData) {
+          return initialState
+        }
+        // console.log('responseData', responseData)
+        const loadedHabits = responseData?.map((habit) => {
           habit.id = habit._id
 
           return habit
@@ -64,10 +68,10 @@ const habitsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: 'habit', id: 'LIST' }]
     }),
     updateHabit: builder.mutation({
-      query: ({ id, name, user, date }) => ({
+      query: ({ id, name, userId, date }) => ({
         url: `/habits/${id}`,
         method: 'PATCH',
-        body: { name, user, date }
+        body: { name, userId, date }
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'habit', id: arg.id }]
     }),

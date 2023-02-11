@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { useAuth0 } from '@auth0/auth0-react'
 import { setCredentials } from '../../features/auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
@@ -7,10 +8,18 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers, { getState }) => {
     const { token } = getState().auth
     if (token) {
+      // console.log('token', token)
       headers.set('authorization', `Bearer ${token}`)
     }
     return headers
   }
+  // prepareHeaders: async (headers) => {
+  //   const { getAccessTokenSilently } = useAuth0()
+  //   const token = await getAccessTokenSilently()
+  //   console.log('token', token)
+  //   headers.set('authorization', `Bearer ${token}`)
+  //   return headers
+  // }
 })
 
 // const baseQueryWithReauth = async (args, api, extraOptions) => {

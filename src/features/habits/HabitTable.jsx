@@ -8,17 +8,25 @@ import {
   Spinner
 } from '@chakra-ui/react'
 import React from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 import useAuth from '../../hooks/useAuth'
 import { useGetHabitsForUserQuery } from './habitsApiSlice'
 import HabitRow from './HabitRow'
 
 function HabitTable() {
-  const { id } = useAuth()
+  const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth0()
+  const { sub: id } = user
+  // console.log(id)
+  // console.log(isAuthenticated)
 
-  const { data, isLoading } = useGetHabitsForUserQuery(id)
+  const { data, isLoading, isError, error } = useGetHabitsForUserQuery(id)
 
-  if (isLoading) {
+  if (isLoading || isAuthLoading || !isAuthenticated) {
     return <Spinner />
+  }
+
+  if (isError) {
+    return <div>{error.message}</div>
   }
 
   const { entities } = data

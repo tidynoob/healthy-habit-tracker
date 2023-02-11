@@ -4,12 +4,15 @@ import { Checkbox } from '@chakra-ui/react'
 // import format from 'date-fns/format'
 // import parseISO from 'date-fns/parseISO'
 import { isSameDay, parseISO } from 'date-fns'
+import { useAuth0 } from '@auth0/auth0-react'
 import { selectDate } from '../date/dateSlice'
 import { useUpdateHabitMutation } from './habitsApiSlice'
 import useAuth from '../../hooks/useAuth'
 
 function HabitCompletion({ habit }) {
-  const { id: userId } = useAuth()
+  const { user } = useAuth0()
+  const { sub: userId } = user
+
   const { _id: id, name: habitName, points } = habit
   const date = useSelector(selectDate)
   const preChecked = !!points.find((point) => {

@@ -1,9 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from '@chakra-ui/react'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from './authSlice'
 
 function LoginButton() {
-  const { loginWithRedirect } = useAuth0()
+  const { loginWithRedirect, getAccessTokenSilently } = useAuth0()
+  const dispatch = useDispatch()
 
   const handleLogin = async () => {
     await loginWithRedirect({
@@ -11,6 +14,8 @@ function LoginButton() {
         returnTo: '/dash'
       }
     })
+    const accessToken = await getAccessTokenSilently()
+    dispatch(setCredentials({ accessToken }))
   }
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Box } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Layout from './components/Layout'
 import Public from './components/Public'
 // import Login from './features/auth/Login'
@@ -16,27 +16,28 @@ import Welcome from './features/auth/Welcome'
 import Prefetch from './features/auth/Prefetch'
 // import PersistLogin from './features/auth/PersistLogin'
 import ProfilePage from './features/auth/Profile'
-import { setCredentials } from './features/auth/authSlice'
+import { setCredentials, selectToken } from './features/auth/authSlice'
 
 function App() {
   // console.log('App.jsx')
-  const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
-
+  const { isLoading, isAuthenticated, getAccessTokenSilently, user } =
+    useAuth0()
   const dispatch = useDispatch()
-
+  const token = useSelector(selectToken)
   useEffect(() => {
-    ;(async () => {
-      try {
-        const accessToken = await getAccessTokenSilently()
-        dispatch(setCredentials({ accessToken }))
-        console.log('accessToken', accessToken)
-      } catch (error) {
-        console.log(error.message)
-      }
-    })()
-  }, [isAuthenticated])
+    let isMounted = true
 
-  if (isLoading) {
+    ;(async () => {
+      const accessToken = await getAccessTokenSilently()
+      dispatch(setCredentials({ accessToken }))
+    })()
+
+    return () => {
+      isMounted = false
+    }
+  }, [getAccessTokenSilently])
+
+  if (isLoading || (isAuthenticated && !token)) {
     return <div>Loading...</div>
   }
 

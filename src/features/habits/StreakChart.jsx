@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Skeleton, Spinner } from '@chakra-ui/react'
+import { Box, Skeleton, Spinner, Text } from '@chakra-ui/react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,7 @@ import {
 import { Bar } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { addDays } from 'date-fns'
+import { useAuth0 } from '@auth0/auth0-react'
 import useAuth from '../../hooks/useAuth'
 import { useGetHabitsForUserQuery } from './habitsApiSlice'
 import { selectDate } from '../date/dateSlice'
@@ -32,15 +33,36 @@ const options = {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip)
 
 function StreakChart() {
-  const { id } = useAuth()
-  const date = new Date()
-  const { data, isLoading } = useGetHabitsForUserQuery(id)
+  const { user, isLoading: isAuthLoading, isAuthenticated } = useAuth0()
+  const { sub: id } = user
 
-  if (isLoading) {
+  const date = new Date()
+  const { data, isLoading, isError } = useGetHabitsForUserQuery(id)
+
+  if (isLoading || isAuthLoading || !isAuthenticated) {
     return <Spinner />
   }
 
+  if (isError) {
+    return <div>Something went wrong</div>
+  }
+
   const arrayData = Object.values(data.entities)
+  if (arrayData.length === 0) {
+    return (
+      <Box
+        bg="white"
+        borderRadius="base"
+        p="4"
+        position="relative"
+        w="full"
+        minW="300px"
+        maxW="100%"
+      >
+        <Text>Add a habit to start building a streak!</Text>
+      </Box>
+    )
+  }
 
   const labels = arrayData?.map((habit) => habit.name)
 
