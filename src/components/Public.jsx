@@ -1,23 +1,17 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
-import {
-  Box,
-  Container,
-  Heading,
-  Flex,
-  Text,
-  HStack,
-  Button
-} from '@chakra-ui/react'
+import { Box, Container, Heading, Flex, Text, HStack } from '@chakra-ui/react'
 import Background from './Background'
 import SignupButton from '../features/auth/SignUpButton'
 import LoginButton from '../features/auth/LoginButton'
-
-// <Link to="/login">Login</Link>
+import Header from './Header'
 
 function Public() {
   return (
     <Background>
+      <Header>
+        <SignupButton />
+        <LoginButton />
+      </Header>
       <Box as="main" w="full" py="4" px={{ base: '1rem', lg: '0' }}>
         <Container
           maxW={{

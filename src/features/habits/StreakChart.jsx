@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Skeleton, Spinner, Text } from '@chakra-ui/react'
+import { Box, Spinner, Text } from '@chakra-ui/react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,12 +8,9 @@ import {
   Tooltip
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { useSelector } from 'react-redux'
 import { addDays } from 'date-fns'
 import { useAuth0 } from '@auth0/auth0-react'
-import useAuth from '../../hooks/useAuth'
 import { useGetHabitsForUserQuery } from './habitsApiSlice'
-import { selectDate } from '../date/dateSlice'
 import { findMaxStreak, findCurrentStreak } from '../../utils/findStreaks'
 
 const options = {
@@ -40,11 +37,33 @@ function StreakChart() {
   const { data, isLoading, isError } = useGetHabitsForUserQuery(id)
 
   if (isLoading || isAuthLoading || !isAuthenticated) {
-    return <Spinner />
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        bg="white"
+        p="4"
+        borderRadius="base"
+      >
+        <Spinner />
+      </Box>
+    )
   }
 
   if (isError) {
-    return <div>Something went wrong</div>
+    return (
+      <Box
+        bg="white"
+        borderRadius="base"
+        p="4"
+        position="relative"
+        w="full"
+        minW="300px"
+        maxW="100%"
+      >
+        <Text>Something went wrong</Text>
+      </Box>
+    )
   }
 
   const arrayData = Object.values(data.entities)

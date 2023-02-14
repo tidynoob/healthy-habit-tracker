@@ -9,7 +9,6 @@ import {
 import { BiPlusCircle, BiCheckCircle } from 'react-icons/bi'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useAddNewHabitMutation } from './habitsApiSlice'
-import useAuth from '../../hooks/useAuth'
 import useOutsideClick from '../../hooks/useOutsideClick'
 
 function NewHabitButton() {

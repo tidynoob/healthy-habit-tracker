@@ -7,7 +7,7 @@ import HabitTable from '../habits/HabitTable'
 import NewHabitButton from '../habits/NewHabitButton'
 import Heatmap from '../habits/HabitHeatmap/Heatmap'
 
-function Welcome() {
+function Dashboard() {
   // const date = new Date()
   // const today = new Intl.DateTimeFormat('en-US', {
   //   dateStyle: 'full',
@@ -54,7 +54,4 @@ function Welcome() {
   )
 }
 
-export default Welcome
-
-/* <Link to="/dash/habits">Habits</Link>
-      <Link to="/dash/users">User Settings</Link> */
+export default Dashboard

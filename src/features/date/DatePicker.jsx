@@ -7,7 +7,6 @@ import { selectDate, setDate as setGlobalDate } from './dateSlice'
 function DatePicker() {
   const globalDate = useSelector(selectDate)
   const [date, setDate] = useState(globalDate)
-  //   console.log(date)
   const dispatch = useDispatch()
 
   useEffect(() => {

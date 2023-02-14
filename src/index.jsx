@@ -13,12 +13,6 @@ const theme = extendTheme({
     heading: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
     body: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif'
   }
-  // breakpoints: {
-  //   sm: '600px',
-  //   smd: '905px',
-  //   md: '1240px',
-  //   lg: '1440px'
-  // }
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

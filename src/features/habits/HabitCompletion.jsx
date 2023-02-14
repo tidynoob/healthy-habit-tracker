@@ -7,7 +7,6 @@ import { isSameDay, parseISO } from 'date-fns'
 import { useAuth0 } from '@auth0/auth0-react'
 import { selectDate } from '../date/dateSlice'
 import { useUpdateHabitMutation } from './habitsApiSlice'
-import useAuth from '../../hooks/useAuth'
 
 function HabitCompletion({ habit }) {
   const { user } = useAuth0()

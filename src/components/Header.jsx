@@ -1,23 +1,12 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  HStack,
-  Button,
-  Spinner,
-  Text,
-  Square
-} from '@chakra-ui/react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Box, Container, Flex, Heading, Image, HStack } from '@chakra-ui/react'
 import { useAuth0 } from '@auth0/auth0-react'
 import LogoutButton from '../features/auth/LogoutButton'
 import SignupButton from '../features/auth/SignUpButton'
 import LoginButton from '../features/auth/LoginButton'
 
-function DashHeader() {
+function Header({ children }) {
   // const navigate = useNavigate()
 
   const { isAuthenticated } = useAuth0()
@@ -58,9 +47,10 @@ function DashHeader() {
             spacing="4"
             display={{ base: 'none', md: 'inline-block' }}
           >
-            {!isAuthenticated && <SignupButton />}
+            {/* {!isAuthenticated && <SignupButton />}
             {!isAuthenticated && <LoginButton />}
-            {isAuthenticated && <LogoutButton />}
+            {isAuthenticated && <LogoutButton />} */}
+            {children}
           </HStack>
         </Flex>
       </Container>
@@ -68,4 +58,4 @@ function DashHeader() {
   )
 }
 
-export default DashHeader
+export default Header
