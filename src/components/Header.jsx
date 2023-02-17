@@ -1,16 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Container, Flex, Heading, Image, HStack } from '@chakra-ui/react'
-import { useAuth0 } from '@auth0/auth0-react'
-import LogoutButton from '../features/auth/LogoutButton'
-import SignupButton from '../features/auth/SignUpButton'
-import LoginButton from '../features/auth/LoginButton'
 
 function Header({ children }) {
-  // const navigate = useNavigate()
-
-  const { isAuthenticated } = useAuth0()
-
   return (
     <Box
       as="header"
@@ -47,9 +39,6 @@ function Header({ children }) {
             spacing="4"
             display={{ base: 'none', md: 'inline-block' }}
           >
-            {/* {!isAuthenticated && <SignupButton />}
-            {!isAuthenticated && <LoginButton />}
-            {isAuthenticated && <LogoutButton />} */}
             {children}
           </HStack>
         </Flex>

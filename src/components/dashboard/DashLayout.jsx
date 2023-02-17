@@ -6,7 +6,7 @@ import Header from '../Header'
 import DashFooter from './DashFooter'
 import SignupButton from '../../features/auth/SignUpButton'
 import LoginButton from '../../features/auth/LoginButton'
-import LogoutButton from '../../features/auth/LogoutButton'
+import AvatarMenuButton from '../../features/auth/AvatarMenuButton'
 
 function DashLayout() {
   const { isAuthenticated } = useAuth0()
@@ -25,7 +25,7 @@ function DashLayout() {
       <Header>
         {!isAuthenticated && <SignupButton />}
         {!isAuthenticated && <LoginButton />}
-        {isAuthenticated && <LogoutButton />}
+        {isAuthenticated && <AvatarMenuButton />}
       </Header>
 
       <Box as="main" w="full" py="4" px={{ base: '4', lg: '0' }}>
