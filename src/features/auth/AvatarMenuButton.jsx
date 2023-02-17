@@ -11,10 +11,12 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useNavigate } from 'react-router-dom'
 import Avatar from './Avatar'
 
 function AvatarMenuButton() {
   const { logout } = useAuth0()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     logout({
@@ -30,7 +32,8 @@ function AvatarMenuButton() {
         <Avatar />
       </MenuButton>
       <MenuList minW="40">
-        <MenuItem>Profile</MenuItem>
+        <MenuItem onClick={() => navigate('/')}>Dashboard</MenuItem>
+        <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </MenuList>
     </Menu>

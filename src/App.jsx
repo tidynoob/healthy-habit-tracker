@@ -7,8 +7,8 @@ import Layout from './components/Layout'
 import Public from './components/Public'
 import DashLayout from './components/dashboard/DashLayout'
 import Dashboard from './features/auth/Dashboard'
-import ProfilePage from './features/auth/Profile'
 import { setCredentials, selectToken } from './features/auth/authSlice'
+import Profile from './features/auth/Profile'
 
 function App() {
   const { isLoading, isAuthenticated, getAccessTokenSilently } = useAuth0()
@@ -35,9 +35,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Public />} />
-          <Route path="profile" element={<ProfilePage />} />
           <Route path="dash" element={<DashLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

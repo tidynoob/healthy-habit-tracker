@@ -1,44 +1,36 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import { Container, Heading, Image } from '@chakra-ui/react'
 import React from 'react'
 
-function ProfilePage() {
+function Profile() {
   const { user } = useAuth0()
-  console.log('user', user)
+  // console.log('user', user)
 
   if (!user) {
     return null
   }
 
   return (
-    <div className="content-layout">
-      <h1 id="page-title" className="content__title">
-        Profile Page
-      </h1>
-      <div className="content__body">
-        <p id="page-description">
-          <span>
-            You can use the <strong>ID Token</strong> to get the profile
-            information of an authenticated user.
-          </span>
-          <span>
-            <strong>Only authenticated users can access this page.</strong>
-          </span>
-        </p>
-        <div className="profile-grid">
-          <div className="profile__header">
-            <img src={user.picture} alt="Profile" className="profile__avatar" />
-            <div className="profile__headline">
-              <h2 className="profile__title">{user.name}</h2>
-              <span className="profile__description">{user.email}</span>
-            </div>
-          </div>
-          <div className="profile__details">
-            {JSON.stringify(user, null, 2)}
-          </div>
-        </div>
-      </div>
-    </div>
+    <Container
+      maxW="sm"
+      display="flex"
+      bg="white"
+      borderRadius="base"
+      p="4"
+      flexDir="column"
+      alignItems="center"
+      gap="4"
+    >
+      <Image
+        src={user.picture}
+        alt={user.name}
+        h="5rem"
+        w="5rem"
+        borderRadius="full"
+      />
+      <Heading size="xl">{user.name}</Heading>
+    </Container>
   )
 }
 
-export default ProfilePage
+export default Profile
