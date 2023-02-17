@@ -44,6 +44,7 @@ function StreakChart() {
         bg="white"
         p="4"
         borderRadius="base"
+        h="full"
       >
         <Spinner />
       </Box>
@@ -60,6 +61,7 @@ function StreakChart() {
         w="full"
         minW="300px"
         maxW="100%"
+        h="full"
       >
         <Text>Something went wrong</Text>
       </Box>
